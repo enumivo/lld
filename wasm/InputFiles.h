@@ -67,6 +67,7 @@ public:
 
   ArrayRef<Symbol *> getSymbols() const { return Symbols; }
 
+  StringRef EnumivoABI;
 protected:
   InputFile(Kind K, MemoryBufferRef M) : MB(M), FileKind(K) {}
   MemoryBufferRef MB;
@@ -131,8 +132,13 @@ public:
   DataSymbol *getDataSymbol(uint32_t Index) const;
   GlobalSymbol *getGlobalSymbol(uint32_t Index) const;
   SectionSymbol *getSectionSymbol(uint32_t Index) const;
-
+  std::string getEnumivoABI() const { return enumivo_abi; }
+  ArrayRef<StringRef> getEnumivoActions() const { return enumivo_actions; }
+  ArrayRef<StringRef> getEnumivoNotify() const { return enumivo_notify; }
 private:
+  std::string enumivo_abi;
+  ArrayRef<StringRef> enumivo_actions;
+  ArrayRef<StringRef> enumivo_notify;
   Symbol *createDefined(const WasmSymbol &Sym);
   Symbol *createUndefined(const WasmSymbol &Sym);
 
